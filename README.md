@@ -1,9 +1,9 @@
 # Affluenza elezioni
 ### Un semplice database MySQL per tenere d'occhio l'affluenza in un seggio elettorale.<br>
 
-Passo molto mio tempo nei seggi elettorali, quando ve n'è l'occasione.<br>
+Passo molto tempo nei seggi elettorali, quando ve n'è l'occasione.<br>
 Capita che, ogni tanto, chi di dovere venga a chiedere i dati riguardanti l'affluenza al seggio.<br>
-Al fine di tenere sott'occhio i vari dati e avere un conteggio sotto mano senza carta, né penna, ho designato questo semplice database in MySQL.<br><br>
+Al fine di tenere sott'occhio tale dato senza carta, né penna, ho designato questo semplice database in MySQL.<br><br>
 Il database è composto da tre tabelle: 
 1) affluenza_tot per l'affluenza totale;
 2) affluenza_m per l'affluenza maschile;
