@@ -11,6 +11,11 @@ Il database ha tre tabelle:
 
 Le chiavi primarie ref_id delle tabelle affluenza_m e affluenza_f sono collegate a due chiavi esterne di affluenza_tot.
 
+Il database è strutturato alla seguente maniera:<br>
+![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](designer2026-03-20_183017.png)
+
+
+
 Per creare e utilizzare il database:
 ```
 
@@ -55,4 +60,19 @@ DELIMITER ;
 Per richiamare la procedura memorizzata per i votatori di sesso femminile:
 ```
 CALL ins_donna(XX);
+```
+
+Per calcolare i votanti totali nella tabella affluenza_tot dati i valori massimi presenti nelle tabelle affluenza_m e affluenza_f:
+```
+INSERT INTO affluenza_tot(ref_id_m,ref_id_f,votanti_tot,data_ora) VALUES((SELECT MAX(ref_id) from affluenza_m),(SELECT MAX(ref_id) from affluenza_f), (SELECT MAX(votanti) FROM affluenza_m) + (SELECT MAX(votanti) FROM affluenza_f), NOW());
+```
+Per creare una procedura memorizzata dell'operazione sovrastante al fine di non riscrivere manualmente l'istruzione:
+```
+DELIMITER $$
+CREATE PROCEDURE get_customers() BEGIN INSERT INTO affluenza_tot(ref_id_m,ref_id_f,votanti_tot,data_ora) VALUES((SELECT MAX(ref_id) from affluenza_m),(SELECT MAX(ref_id) from affluenza_f), (SELECT MAX(votanti) FROM affluenza_m) + (SELECT MAX(votanti) FROM affluenza_f), NOW()); END$$
+DELIMITER ;
+```
+Per richiamare la procedura memorizzata:
+```
+CALL calcola_totale();
 ```
