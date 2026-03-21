@@ -89,3 +89,19 @@ Come si può evincere dallo screenshot, verranno memorizzati in progressione nel
 4) il riferimento da cui è tratto il numero massimo dei votanti di sesso maschile;
 5) il riferimento da cui è tratto il numero massimo dei votanti di sesso femminile.
 ____________________________________
+Per calcolare la media degli elettori di sesso maschile, la media degli elettori di sesso femminile e la media totale:
+```
+SELECT (SELECT AVG(votanti) FROM affluenza_m) AS media_uomini, (SELECT AVG(votanti) FROM affluenza_f) AS media_donne, (SELECT AVG(votanti_tot) FROM affluenza_tot) AS media_complessiva;
+```
+Per creare una procedura memorizzata dell'operazione sovrastante:
+```
+DELIMITER $$
+CREATE PROCEDURE calcola_media() BEGIN SELECT (SELECT AVG(votanti) FROM affluenza_m) AS media_uomini, (SELECT AVG(votanti) FROM affluenza_f) AS media_donne, (SELECT AVG(votanti_tot) FROM affluenza_tot) AS media_complessiva; END$$
+DELIMITER ;
+```
+Per richiamare la procedura memorizzata:
+```
+CALL calcola_media();
+```
+![cm](calcmedia2026-03-21_113838.png)
+____________________________________
