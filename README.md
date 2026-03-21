@@ -73,12 +73,12 @@ INSERT INTO affluenza_tot(ref_id_m,ref_id_f,votanti_tot,data_ora) VALUES((SELECT
 Per creare una procedura memorizzata dell'operazione sovrastante al fine di non riscrivere manualmente l'istruzione:
 ```
 DELIMITER $$
-CREATE PROCEDURE get_customers() BEGIN INSERT INTO affluenza_tot(ref_id_m,ref_id_f,votanti_tot,data_ora) VALUES((SELECT MAX(ref_id) from affluenza_m),(SELECT MAX(ref_id) from affluenza_f), (SELECT MAX(votanti) FROM affluenza_m) + (SELECT MAX(votanti) FROM affluenza_f), NOW()); END$$
+CREATE PROCEDURE calcola_tot() BEGIN INSERT INTO affluenza_tot(ref_id_m,ref_id_f,votanti_tot,data_ora) VALUES((SELECT MAX(ref_id) from affluenza_m),(SELECT MAX(ref_id) from affluenza_f), (SELECT MAX(votanti) FROM affluenza_m) + (SELECT MAX(votanti) FROM affluenza_f), NOW()); END$$
 DELIMITER ;
 ```
 Per richiamare la procedura memorizzata:
 ```
-CALL calcola_totale();
+CALL calcola_tot();
 ```
 Di seguito, una dimostrazione del calcolo dei votanti totali:<br>
 ![vt](proceduratot2026-03-20_184807.png)
